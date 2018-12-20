@@ -21,8 +21,6 @@ RUN yum install -y wget zsh git
 RUN wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh
 ENV TERM=xterm
 
-RUN sh ./install.sh
-
-RUN rm ./install.sh
+RUN sh ./install.sh && rm ./install.sh
 
 ENTRYPOINT ["/bin/zsh"]

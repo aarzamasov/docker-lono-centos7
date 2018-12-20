@@ -5,10 +5,12 @@ RUN yum install -y gcc-c++ patch readline \
     readline-devel zlib zlib-devel \
     libyaml-devel libffi-devel openssl-devel make \
     bzip2 autoconf automake libtool \
-    bison iconv-devel sqlite-devel which
+    bison iconv-devel sqlite-devel which \
+    && yum autoremove -y
 
-RUN curl -sSL https://rvm.io/mpapis.asc | gpg --import -
-RUN curl -L get.rvm.io | bash -s stable
+RUN curl -sSL https://rvm.io/mpapis.asc | gpg --import - \
+    && curl -sSL https://rvm.io/pkuczynski.asc | gpg2 --import - \
+    && curl -L get.rvm.io | bash -s stable
 
 RUN /bin/bash -l -c ". /etc/profile.d/rvm.sh && rvm reload && rvm requirements run && rvm install 2.5"
 RUN /bin/bash -l -c ". /etc/profile.d/rvm.sh && rvm use 2.5 --default"
